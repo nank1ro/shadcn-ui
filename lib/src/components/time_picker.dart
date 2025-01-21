@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:shadcn_ui/src/components/input.dart';
 import 'package:shadcn_ui/src/components/select.dart';
 import 'package:shadcn_ui/src/theme/components/decorator.dart';
+import 'package:shadcn_ui/src/theme/text_theme/text_styles_default.dart';
 import 'package:shadcn_ui/src/theme/theme.dart';
 import 'package:shadcn_ui/src/utils/border.dart';
 import 'package:shadcn_ui/src/utils/separated_iterable.dart';
@@ -169,9 +170,9 @@ class ShadTimePicker extends StatefulWidget {
     this.hourLabel,
     this.minuteLabel,
     this.secondLabel,
-    this.hourPlaceholder,
-    this.minutePlaceholder,
-    this.secondPlaceholder,
+    this.hourHintText,
+    this.minuteHintText,
+    this.secondHintText,
     this.leading,
     this.trailing,
     this.alignment,
@@ -211,9 +212,9 @@ class ShadTimePicker extends StatefulWidget {
     this.hourLabel,
     this.minuteLabel,
     this.secondLabel,
-    this.hourPlaceholder,
-    this.minutePlaceholder,
-    this.secondPlaceholder,
+    this.hourHintText,
+    this.minuteHintText,
+    this.secondHintText,
     this.leading,
     this.trailing,
     this.alignment,
@@ -254,9 +255,9 @@ class ShadTimePicker extends StatefulWidget {
     this.hourLabel,
     this.minuteLabel,
     this.secondLabel,
-    this.hourPlaceholder,
-    this.minutePlaceholder,
-    this.secondPlaceholder,
+    this.hourHintText,
+    this.minuteHintText,
+    this.secondHintText,
     this.leading,
     this.trailing,
     this.alignment,
@@ -331,23 +332,23 @@ class ShadTimePicker extends StatefulWidget {
   /// {@endtemplate}
   final Widget? secondLabel;
 
-  /// {@template ShadTimePicker.hourPlaceholder}
+  /// {@template ShadTimePicker.hourHintText}
   /// The widget to display as the placeholder for the hour field, defaults to
-  /// `Text('00')`.
+  /// `'00'`.
   /// {@endtemplate}
-  final Widget? hourPlaceholder;
+  final String? hourHintText;
 
-  /// {@template ShadTimePicker.minutePlaceholder}
+  /// {@template ShadTimePicker.minuteHintText}
   /// The widget to display as the placeholder for the minute field, defaults to
-  /// `Text('00')`.
+  /// `'00'`.
   /// {@endtemplate}
-  final Widget? minutePlaceholder;
+  final String? minuteHintText;
 
-  /// {@template ShadTimePicker.secondPlaceholder}
+  /// {@template ShadTimePicker.secondHintText}
   /// The widget to display as the placeholder for the second field, defaults to
   /// `Text('00')`.
   /// {@endtemplate}
-  final Widget? secondPlaceholder;
+  final String? secondHintText;
 
   /// {@template ShadTimePicker.leading}
   /// The widget to display before the fields in the picker.
@@ -424,9 +425,9 @@ class ShadTimePicker extends StatefulWidget {
   /// {@endtemplate}
   final Widget? periodLabel;
 
-  /// {@template ShadTimePicker.periodPlaceholder}
+  /// {@template ShadTimePicker.periodHintText}
   /// The widget to display as the placeholder for the period field, defaults
-  /// to `null`.
+  /// to `Text('AM')`.
   /// {@endtemplate}
   final Widget? periodPlaceholder;
 
@@ -612,16 +613,16 @@ class _ShadTimePickerState extends State<ShadTimePicker> {
         theme.timePickerTheme.periodLabel ??
         const Text('Period');
 
-    const defaultPlaceholder = Text('00');
-    final effectiveHourPlaceholder = widget.hourPlaceholder ??
-        theme.timePickerTheme.hourPlaceholder ??
-        defaultPlaceholder;
-    final effectiveMinutePlaceholder = widget.minutePlaceholder ??
-        theme.timePickerTheme.minutePlaceholder ??
-        defaultPlaceholder;
-    final effectiveSecondPlaceholder = widget.secondPlaceholder ??
-        theme.timePickerTheme.secondPlaceholder ??
-        defaultPlaceholder;
+    const defaultHintText = '00';
+    final effectiveHintText = widget.hourHintText ??
+        theme.timePickerTheme.hourHintText ??
+        defaultHintText;
+    final effectiveMinuteHintText = widget.minuteHintText ??
+        theme.timePickerTheme.minuteHintText ??
+        defaultHintText;
+    final effectiveSecondHintText = widget.secondHintText ??
+        theme.timePickerTheme.secondHintText ??
+        defaultHintText;
     final effectivePeriodPlaceholder = widget.periodPlaceholder ??
         theme.timePickerTheme.periodPlaceholder ??
         Text('AM', style: theme.textTheme.muted);
@@ -652,8 +653,9 @@ class _ShadTimePickerState extends State<ShadTimePicker> {
           color: theme.colorScheme.foreground,
           fontSize: 16,
           height: 24 / 16,
+          fontFamily: kDefaultFontFamilyMono,
         )
-        .merge(theme.timePickerTheme.style)
+        // .merge(theme.timePickerTheme.style)
         .merge(widget.style);
 
     final effectiveLabelStyle = theme.textTheme.small
@@ -688,7 +690,7 @@ class _ShadTimePickerState extends State<ShadTimePicker> {
           label: effectiveHourLabel,
           controller: hourController,
           gap: effectiveGap,
-          placeholder: effectiveHourPlaceholder,
+          hintText: effectiveHintText,
           style: effectiveStyle,
           labelStyle: effectiveLabelStyle,
           width: effectiveFieldWidth,
@@ -708,7 +710,7 @@ class _ShadTimePickerState extends State<ShadTimePicker> {
           focusNode: focusNodes[1],
           label: effectiveMinuteLabel,
           controller: minuteController,
-          placeholder: effectiveMinutePlaceholder,
+          hintText: effectiveMinuteHintText,
           gap: effectiveGap,
           style: effectiveStyle,
           labelStyle: effectiveLabelStyle,
@@ -730,7 +732,7 @@ class _ShadTimePickerState extends State<ShadTimePicker> {
           label: effectiveSecondLabel,
           controller: secondController,
           gap: effectiveGap,
-          placeholder: effectiveSecondPlaceholder,
+          hintText: effectiveSecondHintText,
           style: effectiveStyle,
           labelStyle: effectiveLabelStyle,
           width: effectiveFieldWidth,
@@ -794,7 +796,7 @@ class ShadTimePickerField extends StatefulWidget {
   const ShadTimePickerField({
     super.key,
     this.label,
-    this.placeholder,
+    this.hintText,
     this.controller,
     this.gap,
     this.style,
@@ -808,7 +810,7 @@ class ShadTimePickerField extends StatefulWidget {
   });
 
   final Widget? label;
-  final Widget? placeholder;
+  final String? hintText;
   final ShadTimePickerTextEditingController? controller;
   final double? gap;
   final TextStyle? style;
@@ -852,6 +854,8 @@ class _ShadTimePickerFieldState extends State<ShadTimePickerField> {
       color: theme.colorScheme.foreground,
       fontSize: 16,
       height: 24 / 16,
+      fontFamily: kDefaultFontFamilyMono,
+      fontFeatures: const [FontFeature.tabularFigures()],
     );
 
     final effectiveStyle = defaultStyle.merge(widget.style);
@@ -859,11 +863,13 @@ class _ShadTimePickerFieldState extends State<ShadTimePickerField> {
     final defaultPlaceholderStyle = theme.textTheme.muted.copyWith(
       fontSize: 16,
       height: 24 / 16,
+      fontFamily: kDefaultFontFamilyMono,
+      fontFeatures: const [FontFeature.tabularFigures()],
     );
 
-    final effectivePlaceholderStyle = defaultPlaceholderStyle
-        .merge(theme.timePickerTheme.placeholderStyle)
-        .merge(controller.placeholderStyle);
+    final effectivePlaceholderStyle = defaultPlaceholderStyle;
+    // .merge(theme.timePickerTheme.placeholderStyle)
+    // .merge(controller.placeholderStyle);
 
     final defaultLabelStyle = theme.textTheme.small.copyWith(fontSize: 12);
     final effectiveLabelStyle = defaultLabelStyle.merge(widget.labelStyle);
@@ -890,19 +896,21 @@ class _ShadTimePickerFieldState extends State<ShadTimePickerField> {
         SizedBox(
           width: effectiveWidth,
           child: ShadInput(
+            textAlign: TextAlign.center,
             enabled: widget.enabled,
             focusNode: widget.focusNode,
             style: effectiveStyle,
-            placeholderStyle: effectivePlaceholderStyle,
+            hintStyle: effectivePlaceholderStyle,
             controller: controller,
             decoration: effectiveDecoration,
-            placeholder: widget.placeholder,
+            hintText: widget.hintText,
             keyboardType: TextInputType.number,
             textInputAction: TextInputAction.next,
             maxLength: 2,
             showCursor: false,
             maxLengthEnforcement: MaxLengthEnforcement.none,
             padding: effectivePadding,
+            inputPadding: EdgeInsets.zero,
             inputFormatters: [
               FilteringTextInputFormatter.digitsOnly,
             ],
@@ -959,9 +967,11 @@ class ShadTimePickerTextEditingController extends TextEditingController {
     final defaultPlaceholderStyle = theme.textTheme.muted.copyWith(
       fontSize: 16,
       height: 24 / 16,
+      fontFamily: kDefaultFontFamilyMono,
+      fontFeatures: const [FontFeature.tabularFigures()],
     );
     final effectivePlaceholderStyle = defaultPlaceholderStyle
-        .merge(theme.timePickerTheme.placeholderStyle)
+        // .merge(theme.timePickerTheme.placeholderStyle)
         .merge(placeholderStyle);
 
     final intValue = int.tryParse(value.text);

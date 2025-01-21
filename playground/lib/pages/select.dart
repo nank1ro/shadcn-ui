@@ -171,7 +171,7 @@ class _SelectWithSearchState extends State<SelectWithSearch> {
       minWidth: 180,
       placeholder: const Text('Select framework...'),
       onSearchChanged: (value) => setState(() => searchValue = value),
-      searchPlaceholder: const Text('Search framework'),
+      searchHintText: 'Search framework',
       options: [
         if (filteredFrameworks.isEmpty)
           const Padding(

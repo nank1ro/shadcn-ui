@@ -12,8 +12,8 @@ import 'package:shadcn_ui/src/utils/separated_iterable.dart';
 class ShadInput extends StatefulWidget {
   const ShadInput({
     super.key,
+    this.hintText,
     this.initialValue,
-    this.placeholder,
     this.controller,
     this.focusNode,
     this.decoration,
@@ -78,8 +78,7 @@ class ShadInput extends StatefulWidget {
     this.suffix,
     this.mainAxisAlignment,
     this.crossAxisAlignment,
-    this.placeholderStyle,
-    this.placeholderAlignment,
+    this.hintStyle,
     this.inputPadding,
     this.gap,
   })  : smartDashesType = smartDashesType ??
@@ -97,7 +96,7 @@ class ShadInput extends StatefulWidget {
 
   final ShadDecoration? decoration;
   final String? initialValue;
-  final Widget? placeholder;
+  final String? hintText;
   final TextMagnifierConfiguration magnifierConfiguration;
   final TextEditingController? controller;
   final FocusNode? focusNode;
@@ -160,8 +159,7 @@ class ShadInput extends StatefulWidget {
   final Widget? suffix;
   final MainAxisAlignment? mainAxisAlignment;
   final CrossAxisAlignment? crossAxisAlignment;
-  final TextStyle? placeholderStyle;
-  final Alignment? placeholderAlignment;
+  final TextStyle? hintStyle;
   final EdgeInsets? inputPadding;
   final bool onPressedAlwaysCalled;
   final double? gap;
@@ -184,6 +182,8 @@ class ShadInputState extends State<ShadInput>
   RestorableTextEditingController? _controller;
   TextEditingController get effectiveController =>
       widget.controller ?? _controller!.value;
+  final TextEditingController hintTextEditingController =
+      TextEditingController();
   bool _showSelectionHandles = false;
 
   @override
@@ -197,6 +197,7 @@ class ShadInputState extends State<ShadInput>
     if (widget.controller == null) {
       _createLocalController(TextEditingValue(text: widget.initialValue ?? ''));
     }
+    hintTextEditingController.text = widget.hintText ?? '';
   }
 
   @override
@@ -223,6 +224,9 @@ class ShadInputState extends State<ShadInput>
         _showSelectionHandles = !widget.readOnly;
       }
     }
+    if (oldWidget.hintText != widget.hintText) {
+      hintTextEditingController.text = widget.hintText ?? '';
+    }
   }
 
   @override
@@ -231,6 +235,7 @@ class ShadInputState extends State<ShadInput>
 
     if (widget.focusNode == null) effectiveFocusNode.dispose();
     _controller?.dispose();
+    hintTextEditingController.dispose();
     super.dispose();
   }
 
@@ -352,11 +357,12 @@ class ShadInputState extends State<ShadInput>
   @override
   Widget build(BuildContext context) {
     final theme = ShadTheme.of(context);
-    final effectiveTextStyle = widget.style ??
-        theme.inputTheme.style ??
-        theme.textTheme.muted.copyWith(
+    final effectiveTextStyle = theme.textTheme.muted
+        .copyWith(
           color: theme.colorScheme.foreground,
-        );
+        )
+        .merge(theme.inputTheme.style)
+        .merge(widget.style);
 
     final effectiveDecoration =
         (theme.inputTheme.decoration ?? const ShadDecoration())
@@ -369,13 +375,9 @@ class ShadInputState extends State<ShadInput>
     final effectiveInputPadding =
         widget.inputPadding ?? theme.inputTheme.inputPadding ?? EdgeInsets.zero;
 
-    final effectivePlaceholderStyle = widget.placeholderStyle ??
-        theme.inputTheme.placeholderStyle ??
-        theme.textTheme.muted;
-
-    final effectivePlaceholderAlignment = widget.placeholderAlignment ??
-        theme.inputTheme.placeholderAlignment ??
-        Alignment.topLeft;
+    final effectivePlaceholderStyle = theme.textTheme.muted
+        .merge(theme.inputTheme.placeholderStyle)
+        .merge(widget.hintStyle);
 
     final effectiveMainAxisAlignment = widget.mainAxisAlignment ??
         theme.inputTheme.mainAxisAlignment ??
@@ -433,6 +435,8 @@ class ShadInputState extends State<ShadInput>
             return ValueListenableBuilder(
               valueListenable: effectiveController,
               builder: (context, textEditingValue, child) {
+                final showHint =
+                    textEditingValue.text.isEmpty && widget.hintText != null;
                 return ShadDecorator(
                   decoration: effectiveDecoration,
                   focused: focused,
@@ -454,105 +458,126 @@ class ShadInputState extends State<ShadInput>
                               child: Stack(
                                 children: [
                                   // placeholder
-                                  if (textEditingValue.text.isEmpty &&
-                                      widget.placeholder != null)
-                                    Positioned.fill(
-                                      child: Align(
-                                        alignment:
-                                            effectivePlaceholderAlignment,
-                                        child: DefaultTextStyle(
+                                  Offstage(
+                                    offstage: !showHint,
+                                    child: RepaintBoundary(
+                                      child: UnmanagedRestorationScope(
+                                        bucket: bucket,
+                                        child: EditableText(
+                                          controller: hintTextEditingController,
+                                          readOnly: true,
+                                          focusNode: effectiveFocusNode,
                                           style: effectivePlaceholderStyle,
-                                          child: widget.placeholder!,
+                                          strutStyle: widget.strutStyle,
+                                          cursorColor: widget.cursorColor ??
+                                              theme.colorScheme.primary,
+                                          backgroundCursorColor: Colors.grey,
+                                          maxLines: widget.maxLines,
+                                          minLines: widget.minLines,
+                                          expands: widget.expands,
+                                          clipBehavior: widget.clipBehavior,
+                                          restorationId: 'editable_hint',
+                                          textAlign: widget.textAlign,
+                                          rendererIgnoresPointer: true,
+                                          showCursor: false,
                                         ),
                                       ),
                                     ),
+                                  ),
                                   RepaintBoundary(
                                     child: UnmanagedRestorationScope(
                                       bucket: bucket,
-                                      child: EditableText(
-                                        showSelectionHandles:
-                                            _showSelectionHandles,
-                                        key: editableTextKey,
-                                        controller: effectiveController,
-                                        obscuringCharacter:
-                                            widget.obscuringCharacter,
-                                        readOnly: widget.readOnly,
-                                        focusNode: effectiveFocusNode,
-                                        // ! Selection handler section here
-                                        onSelectionChanged:
-                                            _handleSelectionChanged,
-                                        selectionColor: focused
-                                            ? widget.selectionColor ??
-                                                theme.colorScheme.selection
-                                            : null,
-                                        selectionHeightStyle:
-                                            widget.selectionHeightStyle,
-                                        selectionWidthStyle:
-                                            widget.selectionWidthStyle,
-                                        contextMenuBuilder:
-                                            effectiveContextMenuBuilder,
-                                        selectionControls:
-                                            effectiveSelectionControls,
-                                        // ! End of selection handler section
-                                        mouseCursor: effectiveMouseCursor,
-                                        enableInteractiveSelection:
-                                            widget.enableInteractiveSelection,
-                                        style: effectiveTextStyle,
-                                        strutStyle: widget.strutStyle,
-                                        cursorColor: widget.cursorColor ??
-                                            theme.colorScheme.primary,
-                                        backgroundCursorColor: Colors.grey,
-                                        keyboardType: widget.keyboardType,
-                                        keyboardAppearance:
-                                            widget.keyboardAppearance ??
-                                                theme.brightness,
-                                        textInputAction: widget.textInputAction,
-                                        textCapitalization:
-                                            widget.textCapitalization,
-                                        autofocus: widget.autofocus,
-                                        obscureText: widget.obscureText,
-                                        autocorrect: widget.autocorrect,
-                                        magnifierConfiguration:
-                                            widget.magnifierConfiguration,
-                                        smartDashesType: widget.smartDashesType,
-                                        smartQuotesType: widget.smartQuotesType,
-                                        enableSuggestions:
-                                            widget.enableSuggestions,
-                                        maxLines: widget.maxLines,
-                                        minLines: widget.minLines,
-                                        expands: widget.expands,
-                                        onChanged: widget.onChanged,
-                                        onEditingComplete:
-                                            widget.onEditingComplete,
-                                        onSubmitted: widget.onSubmitted,
-                                        onAppPrivateCommand:
-                                            widget.onAppPrivateCommand,
-                                        inputFormatters:
-                                            effectiveInputFormatters,
-                                        cursorWidth: widget.cursorWidth,
-                                        cursorHeight: widget.cursorHeight,
-                                        cursorRadius: widget.cursorRadius,
-                                        scrollPadding: widget.scrollPadding,
-                                        dragStartBehavior:
-                                            widget.dragStartBehavior,
-                                        scrollController:
-                                            widget.scrollController,
-                                        scrollPhysics: widget.scrollPhysics,
-                                        autofillHints: widget.autofillHints,
-                                        clipBehavior: widget.clipBehavior,
-                                        restorationId: 'editable',
-                                        scribbleEnabled: widget.scribbleEnabled,
-                                        enableIMEPersonalizedLearning: widget
-                                            .enableIMEPersonalizedLearning,
-                                        contentInsertionConfiguration: widget
-                                            .contentInsertionConfiguration,
-                                        undoController: widget.undoController,
-                                        spellCheckConfiguration:
-                                            widget.spellCheckConfiguration,
-                                        textAlign: widget.textAlign,
-                                        onTapOutside: widget.onPressedOutside,
-                                        rendererIgnoresPointer: true,
-                                        showCursor: widget.showCursor,
+                                      child: Offstage(
+                                        offstage: showHint,
+                                        child: EditableText(
+                                          showSelectionHandles:
+                                              _showSelectionHandles,
+                                          key: editableTextKey,
+                                          controller: effectiveController,
+                                          obscuringCharacter:
+                                              widget.obscuringCharacter,
+                                          readOnly: widget.readOnly,
+                                          focusNode: effectiveFocusNode,
+                                          // ! Selection handler section here
+                                          onSelectionChanged:
+                                              _handleSelectionChanged,
+                                          selectionColor: focused
+                                              ? widget.selectionColor ??
+                                                  theme.colorScheme.selection
+                                              : null,
+                                          selectionHeightStyle:
+                                              widget.selectionHeightStyle,
+                                          selectionWidthStyle:
+                                              widget.selectionWidthStyle,
+                                          contextMenuBuilder:
+                                              effectiveContextMenuBuilder,
+                                          selectionControls:
+                                              effectiveSelectionControls,
+                                          // ! End of selection handler section
+                                          mouseCursor: effectiveMouseCursor,
+                                          enableInteractiveSelection:
+                                              widget.enableInteractiveSelection,
+                                          style: effectiveTextStyle,
+                                          strutStyle: widget.strutStyle,
+                                          cursorColor: widget.cursorColor ??
+                                              theme.colorScheme.primary,
+                                          backgroundCursorColor: Colors.grey,
+                                          keyboardType: widget.keyboardType,
+                                          keyboardAppearance:
+                                              widget.keyboardAppearance ??
+                                                  theme.brightness,
+                                          textInputAction:
+                                              widget.textInputAction,
+                                          textCapitalization:
+                                              widget.textCapitalization,
+                                          autofocus: widget.autofocus,
+                                          obscureText: widget.obscureText,
+                                          autocorrect: widget.autocorrect,
+                                          magnifierConfiguration:
+                                              widget.magnifierConfiguration,
+                                          smartDashesType:
+                                              widget.smartDashesType,
+                                          smartQuotesType:
+                                              widget.smartQuotesType,
+                                          enableSuggestions:
+                                              widget.enableSuggestions,
+                                          maxLines: widget.maxLines,
+                                          minLines: widget.minLines,
+                                          expands: widget.expands,
+                                          onChanged: widget.onChanged,
+                                          onEditingComplete:
+                                              widget.onEditingComplete,
+                                          onSubmitted: widget.onSubmitted,
+                                          onAppPrivateCommand:
+                                              widget.onAppPrivateCommand,
+                                          inputFormatters:
+                                              effectiveInputFormatters,
+                                          cursorWidth: widget.cursorWidth,
+                                          cursorHeight: widget.cursorHeight,
+                                          cursorRadius: widget.cursorRadius,
+                                          scrollPadding: widget.scrollPadding,
+                                          dragStartBehavior:
+                                              widget.dragStartBehavior,
+                                          scrollController:
+                                              widget.scrollController,
+                                          scrollPhysics: widget.scrollPhysics,
+                                          autofillHints: widget.autofillHints,
+                                          clipBehavior: widget.clipBehavior,
+                                          restorationId: 'editable',
+                                          scribbleEnabled:
+                                              widget.scribbleEnabled,
+                                          enableIMEPersonalizedLearning: widget
+                                              .enableIMEPersonalizedLearning,
+                                          contentInsertionConfiguration: widget
+                                              .contentInsertionConfiguration,
+                                          undoController: widget.undoController,
+                                          spellCheckConfiguration:
+                                              widget.spellCheckConfiguration,
+                                          textAlign: widget.textAlign,
+                                          onTapOutside: widget.onPressedOutside,
+                                          rendererIgnoresPointer: true,
+                                          showCursor: widget.showCursor,
+                                        ),
                                       ),
                                     ),
                                   ),

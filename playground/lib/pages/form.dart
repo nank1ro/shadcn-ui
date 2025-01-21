@@ -67,7 +67,7 @@ class _FormPageState extends State<FormPage> {
                   FormStyle.inputField => ShadInputFormField(
                       id: 'username',
                       label: const Text('Username'),
-                      placeholder: const Text('Enter your username'),
+                      hintText: 'Enter your username',
                       description:
                           const Text('This is your public display name.'),
                       validator: (v) {

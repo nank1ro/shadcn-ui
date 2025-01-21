@@ -8,12 +8,12 @@ class MyStringProperty extends StatelessWidget {
     required this.label,
     required this.initialValue,
     required this.onChanged,
-    this.placeholder,
+    this.hintText,
     this.inputFormatters,
   });
 
   final String label;
-  final Widget? placeholder;
+  final String? hintText;
   final String? initialValue;
   final ValueChanged<String>? onChanged;
   final List<TextInputFormatter>? inputFormatters;
@@ -30,7 +30,7 @@ class MyStringProperty extends StatelessWidget {
         ShadInput(
           initialValue: initialValue,
           onChanged: onChanged,
-          placeholder: placeholder,
+          hintText: hintText,
           inputFormatters: inputFormatters,
         )
       ],

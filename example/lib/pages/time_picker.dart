@@ -17,6 +17,11 @@ class TimePickerPage extends StatelessWidget {
               padding: EdgeInsets.only(left: 8, top: 14),
               child: Icon(LucideIcons.clock4),
             ),
+            // fieldWidth: 40,
+            // spacing: 8,
+            // style: TextStyle(fontSize: 12),
+            // placeholderStyle: TextStyle(fontSize: 12),
+            // fieldPadding: EdgeInsets.zero,
             onChanged: (time) {
               print('time: $time');
             },

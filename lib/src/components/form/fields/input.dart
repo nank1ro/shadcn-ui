@@ -26,7 +26,7 @@ class ShadInputFormField extends ShadFormBuilderField<String> {
     super.valueTransformer,
     super.onReset,
     ShadDecoration? decoration,
-    Widget? placeholder,
+    String? hintText,
     TextMagnifierConfiguration magnifierConfiguration =
         TextMagnifierConfiguration.disabled,
     TextInputType? keyboardType,
@@ -87,7 +87,6 @@ class ShadInputFormField extends ShadFormBuilderField<String> {
     MainAxisAlignment? mainAxisAlignment,
     CrossAxisAlignment? crossAxisAlignment,
     TextStyle? placeholderStyle,
-    Alignment? placeholderAlignment,
     EdgeInsets? inputPadding,
     double? gap,
   }) : super(
@@ -148,7 +147,7 @@ class ShadInputFormField extends ShadFormBuilderField<String> {
               enableInteractiveSelection: enableInteractiveSelection,
               undoController: undoController,
               spellCheckConfiguration: spellCheckConfiguration,
-              placeholder: placeholder,
+              hintText: hintText,
               onPressed: onPressed,
               onPressedAlwaysCalled: onPressedAlwaysCalled,
               onPressedOutside: onPressedOutside,
@@ -167,8 +166,7 @@ class ShadInputFormField extends ShadFormBuilderField<String> {
               suffix: suffix,
               mainAxisAlignment: mainAxisAlignment,
               crossAxisAlignment: crossAxisAlignment,
-              placeholderStyle: placeholderStyle,
-              placeholderAlignment: placeholderAlignment,
+              hintStyle: placeholderStyle,
               inputPadding: inputPadding,
               gap: gap,
             );

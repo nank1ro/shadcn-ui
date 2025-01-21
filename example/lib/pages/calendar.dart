@@ -12,6 +12,7 @@ class CalendarPage extends StatefulWidget {
 }
 
 class _CalendarPageState extends State<CalendarPage> {
+  final today = DateTime.now();
   DateTime? selected = DateTime.now();
   bool reverseMonths = false;
   ShadCalendarCaptionLayout captionLayout = ShadCalendarCaptionLayout.label;
@@ -110,8 +111,8 @@ class _CalendarPageState extends State<CalendarPage> {
         Text('Single', style: theme.textTheme.h4),
         ShadCalendar(
           selected: selected,
-          fromMonth: DateTime(2023),
-          toMonth: DateTime(2024, 12),
+          fromMonth: DateTime(today.year),
+          toMonth: DateTime(today.year, 12),
           hideNavigation: hideNavigation,
           captionLayout: captionLayout,
           onMonthChanged: (date) {
@@ -127,8 +128,8 @@ class _CalendarPageState extends State<CalendarPage> {
         Text('Multiple', style: theme.textTheme.h4),
         ShadCalendar.multiple(
           numberOfMonths: 2,
-          fromMonth: DateTime(2024),
-          toMonth: DateTime(2024, 12),
+          fromMonth: DateTime(today.year),
+          toMonth: DateTime(today.year, 12),
           onChanged: (dates) {},
           min: 5,
           max: 10,

@@ -1081,6 +1081,20 @@ class _ShadCalendarState extends State<ShadCalendar> {
       'When fixedWeeks is true, showOutsideDays must be true',
     );
 
+    assert(
+      widget.selected == null ||
+          (widget.fromMonth == null ||
+              widget.selected!.isSameDayOrGreatier(widget.fromMonth!)),
+      'The selected date cannot be before fromMonth',
+    );
+
+    assert(
+      widget.selected == null ||
+          (widget.toMonth == null ||
+              widget.selected!.isSameDayOrLower(widget.toMonth!)),
+      'The selected date cannot be greater than toMonth',
+    );
+
     final theme = ShadTheme.of(context);
 
     final effectiveCaptionLayout =

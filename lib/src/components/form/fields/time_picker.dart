@@ -49,14 +49,14 @@ class ShadTimePickerFormField extends ShadFormBuilderField<ShadTimeOfDay> {
     /// {@macro ShadTimePicker.secondLabel}
     Widget? secondLabel,
 
-    /// {@macro ShadTimePicker.hourPlaceholder}
-    Widget? hourPlaceholder,
+    /// {@macro ShadTimePicker.hourHintText}
+    String? hourHintText,
 
-    /// {@macro ShadTimePicker.minutePlaceholder}
-    Widget? minutePlaceholder,
+    /// {@macro ShadTimePicker.minuteHintText}
+    String? minuteHintText,
 
-    /// {@macro ShadTimePicker.secondPlaceholder}
-    Widget? secondPlaceholder,
+    /// {@macro ShadTimePicker.secondHintText}
+    String? secondHintText,
 
     /// {@macro ShadTimePicker.leading}
     Widget? leading,
@@ -126,9 +126,9 @@ class ShadTimePickerFormField extends ShadFormBuilderField<ShadTimeOfDay> {
               hourLabel: hourLabel,
               minuteLabel: minuteLabel,
               secondLabel: secondLabel,
-              hourPlaceholder: hourPlaceholder,
-              minutePlaceholder: minutePlaceholder,
-              secondPlaceholder: secondPlaceholder,
+              hourHintText: hourHintText,
+              minuteHintText: minuteHintText,
+              secondHintText: secondHintText,
               leading: leading,
               trailing: trailing,
               alignment: alignment,
@@ -195,14 +195,14 @@ class ShadTimePickerFormField extends ShadFormBuilderField<ShadTimeOfDay> {
     /// {@macro ShadTimePicker.secondLabel}
     Widget? secondLabel,
 
-    /// {@macro ShadTimePicker.hourPlaceholder}
-    Widget? hourPlaceholder,
+    /// {@macro ShadTimePicker.hourHintText}
+    String? hourHintText,
 
-    /// {@macro ShadTimePicker.minutePlaceholder}
-    Widget? minutePlaceholder,
+    /// {@macro ShadTimePicker.minuteHourText}
+    String? minuteHourText,
 
-    /// {@macro ShadTimePicker.secondPlaceholder}
-    Widget? secondPlaceholder,
+    /// {@macro ShadTimePicker.secondHintText}
+    String? secondHintText,
 
     /// {@macro ShadTimePicker.leading}
     Widget? leading,
@@ -290,9 +290,9 @@ class ShadTimePickerFormField extends ShadFormBuilderField<ShadTimeOfDay> {
               hourLabel: hourLabel,
               minuteLabel: minuteLabel,
               secondLabel: secondLabel,
-              hourPlaceholder: hourPlaceholder,
-              minutePlaceholder: minutePlaceholder,
-              secondPlaceholder: secondPlaceholder,
+              hourHintText: hourHintText,
+              minuteHintText: minuteHourText,
+              secondHintText: secondHintText,
               leading: leading,
               trailing: trailing,
               alignment: alignment,
@@ -366,14 +366,14 @@ class ShadTimePickerFormField extends ShadFormBuilderField<ShadTimeOfDay> {
     /// {@macro ShadTimePicker.secondLabel}
     Widget? secondLabel,
 
-    /// {@macro ShadTimePicker.hourPlaceholder}
-    Widget? hourPlaceholder,
+    /// {@macro ShadTimePicker.hourHintText}
+    String? hourHintText,
 
-    /// {@macro ShadTimePicker.minutePlaceholder}
-    Widget? minutePlaceholder,
+    /// {@macro ShadTimePicker.minuteHintText}
+    String? minuteHintText,
 
-    /// {@macro ShadTimePicker.secondPlaceholder}
-    Widget? secondPlaceholder,
+    /// {@macro ShadTimePicker.secondHintText}
+    String? secondHintText,
 
     /// {@macro ShadTimePicker.leading}
     Widget? leading,
@@ -462,9 +462,9 @@ class ShadTimePickerFormField extends ShadFormBuilderField<ShadTimeOfDay> {
               hourLabel: hourLabel,
               minuteLabel: minuteLabel,
               secondLabel: secondLabel,
-              hourPlaceholder: hourPlaceholder,
-              minutePlaceholder: minutePlaceholder,
-              secondPlaceholder: secondPlaceholder,
+              hourHintText: hourHintText,
+              minuteHintText: minuteHintText,
+              secondHintText: secondHintText,
               leading: leading,
               trailing: trailing,
               alignment: alignment,

@@ -36,7 +36,7 @@ class EmailInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const ShadInput(
-      placeholder: Text('Email'),
+      hintText: 'Email',
       keyboardType: TextInputType.emailAddress,
     );
   }
@@ -55,7 +55,7 @@ class _PasswordInputState extends State<PasswordInput> {
   @override
   Widget build(BuildContext context) {
     return ShadInput(
-      placeholder: const Text('Password'),
+      hintText: 'Password',
       obscureText: obscure,
       prefix: const Padding(
         padding: EdgeInsets.all(4.0),

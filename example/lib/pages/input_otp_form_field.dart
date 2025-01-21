@@ -52,7 +52,7 @@ class _InputOTPFormFieldPageState extends State<InputOTPFormFieldPage> {
           MyStringProperty(
             label: 'Form Initial Value',
             initialValue: initialValue,
-            placeholder: const Text('OTP initial value'),
+            hintText: 'OTP initial value',
             onChanged: (value) {
               setState(() {
                 value.isEmpty ? initialValue = null : initialValue = value;

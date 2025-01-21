@@ -158,7 +158,7 @@ class _MainPageState extends State<MainPage> {
     return Scaffold(
       appBar: MyAppBar(
         titleWidget: ShadInput(
-          placeholder: const Text('Search ShadcnUI component'),
+          hintText: 'Search ShadcnUI component',
           onChanged: search.set,
         ),
       ),

@@ -28,9 +28,9 @@ class ShadTimePickerTheme {
     this.hourLabel,
     this.minuteLabel,
     this.secondLabel,
-    this.hourPlaceholder,
-    this.minutePlaceholder,
-    this.secondPlaceholder,
+    this.hourHintText,
+    this.minuteHintText,
+    this.secondHintText,
     this.periodLabel,
     this.periodPlaceholder,
   });
@@ -103,14 +103,14 @@ class ShadTimePickerTheme {
   /// {@macro ShadTimePicker.periodLabel}
   final Widget? periodLabel;
 
-  /// {@macro ShadTimePicker.hourPlaceholder}
-  final Widget? hourPlaceholder;
+  /// {@macro ShadTimePicker.hourHintText}
+  final String? hourHintText;
 
-  /// {@macro ShadTimePicker.minutePlaceholder}
-  final Widget? minutePlaceholder;
+  /// {@macro ShadTimePicker.minuteHintText}
+  final String? minuteHintText;
 
-  /// {@macro ShadTimePicker.secondPlaceholder}
-  final Widget? secondPlaceholder;
+  /// {@macro ShadTimePicker.secondHintText}
+  final String? secondHintText;
 
   /// {@macro ShadTimePicker.periodPlaceholder}
   final Widget? periodPlaceholder;
@@ -149,9 +149,9 @@ class ShadTimePickerTheme {
       minuteLabel: t < .5 ? a.minuteLabel : b.minuteLabel,
       secondLabel: t < .5 ? a.secondLabel : b.secondLabel,
       periodLabel: t < .5 ? a.periodLabel : b.periodLabel,
-      hourPlaceholder: t < .5 ? a.hourPlaceholder : b.hourPlaceholder,
-      minutePlaceholder: t < .5 ? a.minutePlaceholder : b.minutePlaceholder,
-      secondPlaceholder: t < .5 ? a.secondPlaceholder : b.secondPlaceholder,
+      hourHintText: t < .5 ? a.hourHintText : b.hourHintText,
+      minuteHintText: t < .5 ? a.minuteHintText : b.minuteHintText,
+      secondHintText: t < .5 ? a.secondHintText : b.secondHintText,
       periodPlaceholder: t < .5 ? a.periodPlaceholder : b.periodPlaceholder,
     );
   }
@@ -180,9 +180,9 @@ class ShadTimePickerTheme {
     Widget? minuteLabel,
     Widget? secondLabel,
     Widget? periodLabel,
-    Widget? hourPlaceholder,
-    Widget? minutePlaceholder,
-    Widget? secondPlaceholder,
+    String? hourHintText,
+    String? minuteHintText,
+    String? secondHintText,
     Widget? periodPlaceholder,
   }) {
     return ShadTimePickerTheme(
@@ -210,9 +210,9 @@ class ShadTimePickerTheme {
       minuteLabel: minuteLabel ?? this.minuteLabel,
       secondLabel: secondLabel ?? this.secondLabel,
       periodLabel: periodLabel ?? this.periodLabel,
-      hourPlaceholder: hourPlaceholder ?? this.hourPlaceholder,
-      minutePlaceholder: minutePlaceholder ?? this.minutePlaceholder,
-      secondPlaceholder: secondPlaceholder ?? this.secondPlaceholder,
+      hourHintText: hourHintText ?? this.hourHintText,
+      minuteHintText: minuteHintText ?? this.minuteHintText,
+      secondHintText: secondHintText ?? this.secondHintText,
       periodPlaceholder: periodPlaceholder ?? this.periodPlaceholder,
     );
   }
@@ -243,9 +243,9 @@ class ShadTimePickerTheme {
       minuteLabel: other.minuteLabel,
       secondLabel: other.secondLabel,
       periodLabel: other.periodLabel,
-      hourPlaceholder: other.hourPlaceholder,
-      minutePlaceholder: other.minutePlaceholder,
-      secondPlaceholder: other.secondPlaceholder,
+      hourHintText: other.hourHintText,
+      minuteHintText: other.minuteHintText,
+      secondHintText: other.secondHintText,
       periodPlaceholder: other.periodPlaceholder,
     );
   }
@@ -278,9 +278,9 @@ class ShadTimePickerTheme {
         other.minuteLabel == minuteLabel &&
         other.secondLabel == secondLabel &&
         other.periodLabel == periodLabel &&
-        other.hourPlaceholder == hourPlaceholder &&
-        other.minutePlaceholder == minutePlaceholder &&
-        other.secondPlaceholder == secondPlaceholder &&
+        other.hourHintText == hourHintText &&
+        other.minuteHintText == minuteHintText &&
+        other.secondHintText == secondHintText &&
         other.periodPlaceholder == periodPlaceholder;
   }
 
@@ -309,9 +309,9 @@ class ShadTimePickerTheme {
         minuteLabel.hashCode ^
         secondLabel.hashCode ^
         periodLabel.hashCode ^
-        hourPlaceholder.hashCode ^
-        minutePlaceholder.hashCode ^
-        secondPlaceholder.hashCode ^
+        hourHintText.hashCode ^
+        minuteHintText.hashCode ^
+        secondHintText.hashCode ^
         periodPlaceholder.hashCode;
   }
 }

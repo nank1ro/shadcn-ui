@@ -52,7 +52,7 @@ class _InputFormFieldPageState extends State<InputFormFieldPage> {
           MyStringProperty(
             label: 'Form Initial Value',
             initialValue: initialValue,
-            placeholder: const Text('Name'),
+            hintText: 'Name',
             onChanged: (value) {
               setState(() {
                 value.isEmpty ? initialValue = null : initialValue = value;
@@ -74,7 +74,7 @@ class _InputFormFieldPageState extends State<InputFormFieldPage> {
                   id: 'username',
                   prefix: const Icon(LucideIcons.user),
                   label: const Text('Username'),
-                  placeholder: const Text('Enter your username'),
+                  hintText: 'Enter your username',
                   description: const Text('This is your public display name.'),
                   validator: (v) {
                     if (v.length < 2) {

@@ -31,13 +31,25 @@ class _InputPageState extends State<InputPage> {
         ),
       ],
       children: [
+        SizedBox(
+          width: 40,
+          child: ShadInput(
+            padding: const EdgeInsets.symmetric(vertical: 8),
+            textAlign: TextAlign.center,
+            hintText: '0',
+            style: const TextStyle(fontSize: 12),
+            hintStyle: const TextStyle(fontSize: 12),
+            enabled: enabled,
+            keyboardType: TextInputType.emailAddress,
+          ),
+        ),
         ShadInput(
-          placeholder: const Text('Email'),
+          hintText: 'Email',
           enabled: enabled,
           keyboardType: TextInputType.emailAddress,
         ),
         ShadInput(
-          placeholder: const Text('Password'),
+          hintText: 'Password',
           enabled: enabled,
           obscureText: obscure,
           prefix: const Padding(

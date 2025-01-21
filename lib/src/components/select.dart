@@ -65,7 +65,7 @@ class ShadSelect<T> extends StatefulWidget {
   })  : variant = ShadSelectVariant.primary,
         onSearchChanged = null,
         searchDivider = null,
-        searchPlaceholder = null,
+        searchHintText = null,
         searchInputPrefix = null,
         onMultipleChanged = null,
         searchPadding = null,
@@ -90,7 +90,7 @@ class ShadSelect<T> extends StatefulWidget {
     this.controller,
     this.searchDivider,
     this.searchInputPrefix,
-    this.searchPlaceholder,
+    this.searchHintText,
     this.searchPadding,
     this.search,
     this.clearSearchOnClose,
@@ -167,7 +167,7 @@ class ShadSelect<T> extends StatefulWidget {
         initialValue = null,
         selectedOptionBuilder = null,
         searchDivider = null,
-        searchPlaceholder = null,
+        searchHintText = null,
         searchInputPrefix = null,
         searchPadding = null,
         search = null,
@@ -189,7 +189,7 @@ class ShadSelect<T> extends StatefulWidget {
     this.controller,
     this.searchDivider,
     this.searchInputPrefix,
-    this.searchPlaceholder,
+    this.searchHintText,
     this.searchPadding,
     this.search,
     this.clearSearchOnClose,
@@ -240,7 +240,7 @@ class ShadSelect<T> extends StatefulWidget {
     this.onSearchChanged,
     this.searchDivider,
     this.searchInputPrefix,
-    this.searchPlaceholder,
+    this.searchHintText,
     this.searchPadding,
     this.search,
     this.clearSearchOnClose,
@@ -392,8 +392,8 @@ class ShadSelect<T> extends StatefulWidget {
   /// The prefix of the search input.
   final Widget? searchInputPrefix;
 
-  /// The placeholder of the search input.
-  final Widget? searchPlaceholder;
+  /// The hinText of the search input.
+  final String? searchHintText;
 
   /// The padding of the search input.
   final EdgeInsets? searchPadding;
@@ -692,7 +692,7 @@ class ShadSelectState<T> extends State<ShadSelect<T>> {
                   padding: widget.searchPadding ??
                       theme.selectTheme.searchPadding ??
                       const EdgeInsets.all(12),
-                  placeholder: widget.searchPlaceholder,
+                  hintText: widget.searchHintText,
                   decoration: ShadDecoration.none,
                   onChanged: widget.onSearchChanged,
                 ),

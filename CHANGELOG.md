@@ -1,3 +1,10 @@
+## 0.19.0
+
+- **BREAKING CHANGE**: `ShadInput` placeholder alignment. Removed `placeholder` in favor of `hintText` which is now of type `String`. This applies also to `ShadInputFormField`.
+- **BREAKING CHANGE**: Rename `searchPlaceholder` into `searchHintText` in `ShadSelect` and `ShadSelectTheme`.
+- **BREAKING CHANGE**: Rename `hourPlaceholder` into `hourHintText`, `minutePlaceholder` into `minuteHintText`, `secondPlaceholder` into `secondHintText` in `ShadTimePicker` and `ShadTimePickerTheme`.
+- **FIX**: Add `assert` to prevent `selected` date of `ShadCalendar` to be outside the `fromMonth:toMonth` range.
+
 ## 0.18.1
 
 - **FIX**: Set `ShadCard` clipBehavior to `Clip.antialias`, add `clipBehavior` to `ShadCard` and `ShadCardTheme`.
