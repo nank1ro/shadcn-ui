@@ -21,6 +21,37 @@ enum ShadAppType {
   custom,
 }
 
+typedef MaterialThemeBuilder = ThemeData Function(
+  BuildContext context,
+  ShadThemeData themeData,
+  String fontFamily,
+  Iterable<ThemeExtension<dynamic>>? extensions,
+  Brightness brightness,
+  Color primaryColor,
+  Color onPrimaryColor,
+  Color secondaryColor,
+  Color onSecondaryColor,
+  Color errorColor,
+  Color onErrorColor,
+  Color backgroundColor,
+  Color onBackgroundColor,
+  Color surfaceColor,
+  Color onSurfaceColor,
+  Color scaffoldBackgroundColor,
+  DividerThemeData dividerTheme,
+  TextSelectionThemeData textSelectionTheme,
+);
+
+typedef CupertinoThemeBuilder = CupertinoThemeData Function(
+  BuildContext context,
+  ShadThemeData themeData,
+  Brightness brightness,
+  Color primaryColor,
+  Color primaryContrastingColor,
+  Color scaffoldBackgroundColor,
+  Color barBackgroundColor,
+);
+
 class ShadApp extends StatefulWidget {
   /// Creates a [ShadApp] providing a [ShadTheme].
   const ShadApp({
@@ -55,13 +86,13 @@ class ShadApp extends StatefulWidget {
     this.scrollBehavior = const ShadScrollBehavior(),
     this.pageRouteBuilder,
     this.themeCurve = Curves.linear,
-    this.materialThemeBuilder,
+    this.materialThemeBuilder = defaultMaterialThemeBuilder,
   })  : routeInformationProvider = null,
         routeInformationParser = null,
         routerDelegate = null,
         backButtonDispatcher = null,
         routerConfig = null,
-        cupertinoThemeBuilder = null,
+        cupertinoThemeBuilder = defaultCupertinoThemeBuilder,
         appBuilder = null,
         type = ShadAppType.shadcn;
 
@@ -94,7 +125,7 @@ class ShadApp extends StatefulWidget {
     this.restorationScopeId,
     this.scrollBehavior = const ShadScrollBehavior(),
     this.themeCurve = Curves.linear,
-    this.materialThemeBuilder,
+    this.materialThemeBuilder = defaultMaterialThemeBuilder,
   })  : navigatorObservers = null,
         navigatorKey = null,
         onGenerateRoute = null,
@@ -104,7 +135,7 @@ class ShadApp extends StatefulWidget {
         routes = null,
         initialRoute = null,
         pageRouteBuilder = null,
-        cupertinoThemeBuilder = null,
+        cupertinoThemeBuilder = defaultCupertinoThemeBuilder,
         appBuilder = null,
         type = ShadAppType.shadcn;
 
@@ -141,13 +172,13 @@ class ShadApp extends StatefulWidget {
     this.scrollBehavior = const MaterialScrollBehavior(),
     this.pageRouteBuilder,
     this.themeCurve = Curves.linear,
-    this.materialThemeBuilder,
+    this.materialThemeBuilder = defaultMaterialThemeBuilder,
   })  : routeInformationProvider = null,
         routeInformationParser = null,
         routerDelegate = null,
         backButtonDispatcher = null,
         routerConfig = null,
-        cupertinoThemeBuilder = null,
+        cupertinoThemeBuilder = defaultCupertinoThemeBuilder,
         appBuilder = null,
         type = ShadAppType.material;
 
@@ -180,7 +211,7 @@ class ShadApp extends StatefulWidget {
     this.restorationScopeId,
     this.scrollBehavior = const MaterialScrollBehavior(),
     this.themeCurve = Curves.linear,
-    this.materialThemeBuilder,
+    this.materialThemeBuilder = defaultMaterialThemeBuilder,
   })  : navigatorObservers = null,
         navigatorKey = null,
         onGenerateRoute = null,
@@ -190,7 +221,7 @@ class ShadApp extends StatefulWidget {
         routes = null,
         initialRoute = null,
         pageRouteBuilder = null,
-        cupertinoThemeBuilder = null,
+        cupertinoThemeBuilder = defaultCupertinoThemeBuilder,
         appBuilder = null,
         type = ShadAppType.material;
 
@@ -227,8 +258,8 @@ class ShadApp extends StatefulWidget {
     this.scrollBehavior = const CupertinoScrollBehavior(),
     this.pageRouteBuilder,
     this.themeCurve = Curves.linear,
-    this.cupertinoThemeBuilder,
-    this.materialThemeBuilder,
+    this.cupertinoThemeBuilder = defaultCupertinoThemeBuilder,
+    this.materialThemeBuilder = defaultMaterialThemeBuilder,
   })  : routeInformationProvider = null,
         routeInformationParser = null,
         routerDelegate = null,
@@ -266,8 +297,8 @@ class ShadApp extends StatefulWidget {
     this.restorationScopeId,
     this.scrollBehavior = const CupertinoScrollBehavior(),
     this.themeCurve = Curves.linear,
-    this.cupertinoThemeBuilder,
-    this.materialThemeBuilder,
+    this.cupertinoThemeBuilder = defaultCupertinoThemeBuilder,
+    this.materialThemeBuilder = defaultMaterialThemeBuilder,
   })  : navigatorObservers = null,
         navigatorKey = null,
         onGenerateRoute = null,
@@ -292,7 +323,7 @@ class ShadApp extends StatefulWidget {
         onNavigationNotification = null,
         builder = null,
         color = null,
-        cupertinoThemeBuilder = null,
+        cupertinoThemeBuilder = defaultCupertinoThemeBuilder,
         debugShowCheckedModeBanner = true,
         home = null,
         initialRoute = null,
@@ -300,7 +331,7 @@ class ShadApp extends StatefulWidget {
         localeListResolutionCallback = null,
         localeResolutionCallback = null,
         localizationsDelegates = null,
-        materialThemeBuilder = null,
+        materialThemeBuilder = defaultMaterialThemeBuilder,
         navigatorKey = null,
         navigatorObservers = null,
         onGenerateInitialRoutes = null,
@@ -322,6 +353,70 @@ class ShadApp extends StatefulWidget {
         themeCurve = Curves.linear,
         title = '',
         type = ShadAppType.custom;
+
+  static ThemeData defaultMaterialThemeBuilder(
+    BuildContext context,
+    ShadThemeData themeData,
+    String fontFamily,
+    Iterable<ThemeExtension<dynamic>>? extensions,
+    Brightness brightness,
+    Color primaryColor,
+    Color onPrimaryColor,
+    Color secondaryColor,
+    Color onSecondaryColor,
+    Color errorColor,
+    Color onErrorColor,
+    Color backgroundColor,
+    Color onBackgroundColor,
+    Color surfaceColor,
+    Color onSurfaceColor,
+    Color scaffoldBackgroundColor,
+    DividerThemeData dividerTheme,
+    TextSelectionThemeData textSelectionTheme,
+  ) {
+    return ThemeData(
+      fontFamily: fontFamily,
+      extensions: extensions,
+      colorScheme: ColorScheme(
+        brightness: brightness,
+        primary: primaryColor,
+        onPrimary: onPrimaryColor,
+        secondary: secondaryColor,
+        onSecondary: onSecondaryColor,
+        error: errorColor,
+        onError: onErrorColor,
+        // Keep deprecated members for backwards compatibility
+        // ignore: deprecated_member_use
+        background: backgroundColor,
+        // ignore: deprecated_member_use
+        onBackground: onBackgroundColor,
+        surface: surfaceColor,
+        onSurface: onSurfaceColor,
+      ),
+      scaffoldBackgroundColor: scaffoldBackgroundColor,
+      brightness: brightness,
+      dividerTheme: dividerTheme,
+      textSelectionTheme: textSelectionTheme,
+    );
+  }
+
+  static CupertinoThemeData defaultCupertinoThemeBuilder(
+    BuildContext context,
+    ShadThemeData themeData,
+    Brightness brightness,
+    Color primaryColor,
+    Color primaryContrastingColor,
+    Color scaffoldBackgroundColor,
+    Color barBackgroundColor,
+  ) {
+    return CupertinoThemeData(
+      primaryColor: primaryColor,
+      primaryContrastingColor: primaryContrastingColor,
+      scaffoldBackgroundColor: scaffoldBackgroundColor,
+      barBackgroundColor: barBackgroundColor,
+      brightness: brightness,
+    );
+  }
 
   /// The type of app to use.
   ///
@@ -579,13 +674,9 @@ class ShadApp extends StatefulWidget {
   /// A custom app widget builder.
   final Widget Function(BuildContext context, ThemeData theme)? appBuilder;
 
-  final ThemeData Function(BuildContext context, ThemeData theme)?
-      materialThemeBuilder;
+  final MaterialThemeBuilder materialThemeBuilder;
 
-  final CupertinoThemeData Function(
-    BuildContext context,
-    CupertinoThemeData theme,
-  )? cupertinoThemeBuilder;
+  final CupertinoThemeBuilder cupertinoThemeBuilder;
 
   @override
   State<ShadApp> createState() => _ShadAppState();
@@ -669,63 +760,52 @@ class _ShadAppState extends State<ShadApp> {
 
   ThemeData materialTheme(BuildContext context) {
     final themeData = theme(context);
-    var mTheme = ThemeData(
-      fontFamily: themeData.textTheme.family,
-      extensions: themeData.extensions,
-      colorScheme: ColorScheme(
-        brightness: themeData.brightness,
-        primary: themeData.colorScheme.primary,
-        onPrimary: themeData.colorScheme.primaryForeground,
-        secondary: themeData.colorScheme.secondary,
-        onSecondary: themeData.colorScheme.secondaryForeground,
-        error: themeData.colorScheme.destructive,
-        onError: themeData.colorScheme.destructiveForeground,
-        // Keep deprecated members for backwards compatibility
-        // ignore: deprecated_member_use
-        background: themeData.colorScheme.background,
-        // ignore: deprecated_member_use
-        onBackground: themeData.colorScheme.foreground,
-        surface: themeData.colorScheme.card,
-        onSurface: themeData.colorScheme.cardForeground,
-      ),
-      scaffoldBackgroundColor: themeData.colorScheme.background,
-      brightness: themeData.brightness,
-      dividerTheme: DividerThemeData(
+
+    final mTheme = widget.materialThemeBuilder(
+      context,
+      themeData,
+      themeData.textTheme.family,
+      themeData.extensions,
+      themeData.brightness,
+      themeData.colorScheme.primary,
+      themeData.colorScheme.primaryForeground,
+      themeData.colorScheme.secondary,
+      themeData.colorScheme.secondaryForeground,
+      themeData.colorScheme.destructive,
+      themeData.colorScheme.destructiveForeground,
+      themeData.colorScheme.background,
+      themeData.colorScheme.foreground,
+      themeData.colorScheme.card,
+      themeData.colorScheme.cardForeground,
+      themeData.colorScheme.background,
+      DividerThemeData(
         color: themeData.colorScheme.border,
         thickness: 1,
       ),
-      textSelectionTheme: TextSelectionThemeData(
+      TextSelectionThemeData(
         cursorColor: themeData.colorScheme.primary,
         selectionColor: themeData.colorScheme.selection,
         selectionHandleColor: themeData.colorScheme.primary,
       ),
       iconTheme: const IconThemeData(size: 16),
     );
-    mTheme = mTheme.copyWith(
+    return mTheme.copyWith(
       textTheme:
-          themeData.textTheme.materialTextTheme(textTheme: mTheme.textTheme),
+          themeData.textTheme.applyGoogleFontToTextTheme(mTheme.textTheme),
     );
-
-    if (widget.materialThemeBuilder == null) {
-      return mTheme;
-    }
-    return widget.materialThemeBuilder!(context, mTheme);
   }
 
   CupertinoThemeData cupertinoTheme(BuildContext context) {
     final themeData = theme(context);
-    final cTheme = CupertinoThemeData(
-      primaryColor: themeData.colorScheme.primary,
-      primaryContrastingColor: themeData.colorScheme.primaryForeground,
-      scaffoldBackgroundColor: themeData.colorScheme.background,
-      barBackgroundColor: themeData.colorScheme.primary,
-      brightness: themeData.brightness,
+    return widget.cupertinoThemeBuilder(
+      context,
+      themeData,
+      themeData.brightness,
+      themeData.colorScheme.primary,
+      themeData.colorScheme.primaryForeground,
+      themeData.colorScheme.background,
+      themeData.colorScheme.background,
     );
-
-    if (widget.cupertinoThemeBuilder == null) {
-      return cTheme;
-    }
-    return widget.cupertinoThemeBuilder!(context, cTheme);
   }
 
   Widget _builder(BuildContext context, Widget? child) {

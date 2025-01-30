@@ -305,97 +305,81 @@ class ShadTextTheme {
     );
   }
 
-  TextTheme materialTextTheme({TextTheme? textTheme}) {
-    final effectiveTextTheme = textTheme ?? const TextTheme();
-    if (googleFontBuilder == null) return effectiveTextTheme;
+  TextTheme applyGoogleFontToTextTheme(TextTheme textTheme) {
+    if (googleFontBuilder == null) return textTheme;
     return TextTheme(
       displayLarge: GoogleFontTextStyle(
-        (effectiveTextTheme.displayLarge ?? const TextStyle())
-            .omitFamilyAndPackage,
+        (textTheme.displayLarge ?? const TextStyle()).omitFamilyAndPackage,
         builder: googleFontBuilder!,
         overrideFamilyWithBuilder: true,
       ),
       displayMedium: GoogleFontTextStyle(
-        (effectiveTextTheme.displayMedium ?? const TextStyle())
-            .omitFamilyAndPackage,
+        (textTheme.displayMedium ?? const TextStyle()).omitFamilyAndPackage,
         builder: googleFontBuilder!,
         overrideFamilyWithBuilder: true,
       ),
       displaySmall: GoogleFontTextStyle(
-        (effectiveTextTheme.displaySmall ?? const TextStyle())
-            .omitFamilyAndPackage,
+        (textTheme.displaySmall ?? const TextStyle()).omitFamilyAndPackage,
         builder: googleFontBuilder!,
         overrideFamilyWithBuilder: true,
       ),
       headlineLarge: GoogleFontTextStyle(
-        (effectiveTextTheme.headlineLarge ?? const TextStyle())
-            .omitFamilyAndPackage,
+        (textTheme.headlineLarge ?? const TextStyle()).omitFamilyAndPackage,
         builder: googleFontBuilder!,
         overrideFamilyWithBuilder: true,
       ),
       headlineMedium: GoogleFontTextStyle(
-        (effectiveTextTheme.headlineMedium ?? const TextStyle())
-            .omitFamilyAndPackage,
+        (textTheme.headlineMedium ?? const TextStyle()).omitFamilyAndPackage,
         builder: googleFontBuilder!,
         overrideFamilyWithBuilder: true,
       ),
       headlineSmall: GoogleFontTextStyle(
-        (effectiveTextTheme.headlineSmall ?? const TextStyle())
-            .omitFamilyAndPackage,
+        (textTheme.headlineSmall ?? const TextStyle()).omitFamilyAndPackage,
         builder: googleFontBuilder!,
         overrideFamilyWithBuilder: true,
       ),
       titleLarge: GoogleFontTextStyle(
-        (effectiveTextTheme.titleLarge ?? const TextStyle())
-            .omitFamilyAndPackage,
+        (textTheme.titleLarge ?? const TextStyle()).omitFamilyAndPackage,
         builder: googleFontBuilder!,
         overrideFamilyWithBuilder: true,
       ),
       titleMedium: GoogleFontTextStyle(
-        (effectiveTextTheme.titleMedium ?? const TextStyle())
-            .omitFamilyAndPackage,
+        (textTheme.titleMedium ?? const TextStyle()).omitFamilyAndPackage,
         builder: googleFontBuilder!,
         overrideFamilyWithBuilder: true,
       ),
       titleSmall: GoogleFontTextStyle(
-        (effectiveTextTheme.titleSmall ?? const TextStyle())
-            .omitFamilyAndPackage,
+        (textTheme.titleSmall ?? const TextStyle()).omitFamilyAndPackage,
         builder: googleFontBuilder!,
         overrideFamilyWithBuilder: true,
       ),
       bodyLarge: GoogleFontTextStyle(
-        (effectiveTextTheme.bodyLarge ?? const TextStyle())
-            .omitFamilyAndPackage,
+        (textTheme.bodyLarge ?? const TextStyle()).omitFamilyAndPackage,
         builder: googleFontBuilder!,
         overrideFamilyWithBuilder: true,
       ),
       bodyMedium: GoogleFontTextStyle(
-        (effectiveTextTheme.bodyMedium ?? const TextStyle())
-            .omitFamilyAndPackage,
+        (textTheme.bodyMedium ?? const TextStyle()).omitFamilyAndPackage,
         builder: googleFontBuilder!,
         overrideFamilyWithBuilder: true,
       ),
       bodySmall: GoogleFontTextStyle(
-        (effectiveTextTheme.bodySmall ?? const TextStyle())
-            .omitFamilyAndPackage,
+        (textTheme.bodySmall ?? const TextStyle()).omitFamilyAndPackage,
         builder: googleFontBuilder!,
         overrideFamilyWithBuilder: true,
       ),
       labelLarge: GoogleFontTextStyle(
-        (effectiveTextTheme.labelLarge ?? const TextStyle())
-            .omitFamilyAndPackage,
+        (textTheme.labelLarge ?? const TextStyle()).omitFamilyAndPackage,
         builder: googleFontBuilder!,
         overrideFamilyWithBuilder: true,
       ),
       labelMedium: GoogleFontTextStyle(
-        (effectiveTextTheme.labelMedium ?? const TextStyle())
-            .omitFamilyAndPackage,
+        (textTheme.labelMedium ?? const TextStyle()).omitFamilyAndPackage,
         builder: googleFontBuilder!,
         overrideFamilyWithBuilder: true,
       ),
       labelSmall: GoogleFontTextStyle(
-        (effectiveTextTheme.labelSmall ?? const TextStyle())
-            .omitFamilyAndPackage,
+        (textTheme.labelSmall ?? const TextStyle()).omitFamilyAndPackage,
         builder: googleFontBuilder!,
         overrideFamilyWithBuilder: true,
       ),
