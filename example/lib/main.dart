@@ -6,6 +6,7 @@ import 'package:example/pages/badge.dart';
 import 'package:example/pages/button.dart';
 import 'package:example/pages/calendar.dart';
 import 'package:example/pages/card.dart';
+import 'package:example/pages/carousel.dart';
 import 'package:example/pages/checkbox.dart';
 import 'package:example/pages/checkbox_form_field.dart';
 import 'package:example/pages/context_menu.dart';
@@ -53,6 +54,7 @@ final routes = <String, WidgetBuilder>{
   '/button': (_) => const ButtonPage(),
   '/calendar': (_) => const CalendarPage(),
   '/card': (_) => const CardPage(),
+  '/carousel': (_) => const CarouselPage(),
   '/checkbox': (_) => const CheckboxPage(),
   '/checkbox-form-field': (_) => const CheckboxFormFieldPage(),
   '/context-menu': (_) => const ContextMenuPage(),

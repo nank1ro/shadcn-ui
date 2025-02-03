@@ -31,6 +31,7 @@ import 'package:shadcn_ui/src/theme/components/tooltip.dart';
 import 'package:shadcn_ui/src/theme/text_theme/theme.dart';
 import 'package:shadcn_ui/src/utils/gesture_detector.dart';
 import 'package:shadcn_ui/src/utils/responsive.dart';
+import 'package:shadcn_ui/src/components/carousel.dart';
 
 @immutable
 abstract class ShadBaseTheme {
@@ -84,6 +85,7 @@ abstract class ShadBaseTheme {
     required this.datePickerTheme,
     required this.timePickerTheme,
     required this.inputOTPTheme,
+    required this.carouselTheme,
   });
 
   final ShadColorScheme colorScheme;
@@ -135,6 +137,7 @@ abstract class ShadBaseTheme {
   final ShadDatePickerTheme datePickerTheme;
   final ShadTimePickerTheme timePickerTheme;
   final ShadInputOTPTheme inputOTPTheme;
+  final ShadCarouselTheme carouselTheme;
 }
 
 @immutable
